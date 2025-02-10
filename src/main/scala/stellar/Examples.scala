@@ -1696,7 +1696,7 @@ class OuterSpace(size: Int = 2, hasMatmul: Boolean = true, hasMerger: Boolean = 
     while ((nElems / size) % size != 0) nElems += 1
     Some(new RegFile(nElems = nElems, nIOCoords = 2, nDomainCoords = 3, domainCoordsToUseForOutputs = (if (leaveOutCoordLookupB) Seq(1 -> 0) else Seq.empty).toMap, nameOpt = Some("regB"), automaticallyOptimize = true))
   } else None
-  val regScattered_MatmulOutputOpt = Option.when(hasMatmul)(new RegFile(nElems = size * size * size, nIOCoords = 3, nDomainCoords = 3, domainCoordsToUseForOutputs = Seq(0 -> 0).toMap, nameOpt = Some("regScattered_MatmulOutput"), automaticallyOptimize = true)
+  val regScattered_MatmulOutputOpt = Option.when(hasMatmul)(new RegFile(nElems = size * size * size, nIOCoords = 3, nDomainCoords = 3, domainCoordsToUseForOutputs = Seq(0 -> 0).toMap, nameOpt = Some("regScattered_MatmulOutput"), automaticallyOptimize = true))
 
   val regScattered_MergerInputOpt = Option.when(hasMerger)(new RegFile(nElems = size * size * size * sramScatteredC_read_multiplier, nIOCoords = 3, nDomainCoords = 3, dontCheckExtraLastInAxisFlag = true, nameOpt = Some("regScattered_MergerInput"), automaticallyOptimize = true))
   val regMergedOpt = Option.when(hasMerger)(new RegFile(nElems = size * 2, nIOCoords = 2, nDomainCoords = 3, nameOpt = Some("regMerged"), getTravellingOpCountFromInPorts = true, automaticallyOptimize = true))
